@@ -46,11 +46,13 @@ INSTALLED_APPS = (
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'corsheaders',
 )
 
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -111,3 +113,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
+CORS_ORIGIN_WHITELIST = (
+        'localhost:9000',
+        'localhost',
+        '127.0.0.1',
+    )
+CORS_ALLOW_HEADERS = (
+        'x-requested-with',
+        'content-type',
+        'accept',
+        'origin',
+        'authorization',
+        'x-csrftoken'
+    )
+
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+}
