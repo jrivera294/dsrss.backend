@@ -17,17 +17,20 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from rest_framework import routers
 from api import views
+from api.views import CurrentUserView
 
 router = routers.DefaultRouter()
 router.register(r'users',views.UserViewSet)
 router.register(r'categories',views.CategoriesViewSet)
 router.register(r'sources',views.SourcesViewSet)
+#router.register(r'currentUser',views.CurrentUserView,base_name='currentUser')
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     #url(r'^api-auth/',include('rest_framework.urls', namespace='rest_framework'))
 	url(r'^rest-auth/', include('rest_auth.urls')),
-    url(r'^rest-auth/registration/', include('rest_auth.registration.urls'))
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
+    url(r'^currentUser', views.CurrentUserView.as_view({'get': 'getCurrent'}), name='getCurrent'),
 ]
 
 urlpatterns += router.urls

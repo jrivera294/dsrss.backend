@@ -4,6 +4,8 @@ from api.serializers import SourcesSerializer,CategoriesSerializer,UserSerialize
 from api.models import Categories,Sources
 from api.permissions import IsOwner
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import detail_route
+from rest_framework.response import Response
 # Create your views here.
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -23,3 +25,9 @@ class SourcesViewSet(viewsets.ModelViewSet):
 	serializer_class = SourcesSerializer
 	permission_classes = [IsAuthenticated]
 	allowed_methods = ('GET',)
+
+class CurrentUserView(viewsets.ViewSet):
+	permission_classes = [IsAuthenticated]
+	def getCurrent(self,request):
+		serializer = UserSerializer(request.user)
+		return Response(serializer.data)
