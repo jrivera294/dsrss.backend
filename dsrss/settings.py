@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     # My Apps
     'api',
     #ThirdParty Apps
@@ -45,6 +46,7 @@ INSTALLED_APPS = (
     'rest_auth',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'corsheaders',
 )
@@ -60,6 +62,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+
+    # Required by `allauth` template tags
+    'django.core.context_processors.request',
+
+    # `allauth` specific context processors
+    'allauth.account.context_processors.account',
+    'allauth.socialaccount.context_processors.socialaccount',
+
 )
 
 ROOT_URLCONF = 'dsrss.urls'
@@ -79,6 +92,14 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 WSGI_APPLICATION = 'dsrss.wsgi.application'
 
@@ -133,3 +154,7 @@ REST_FRAMEWORK = {
        'rest_framework.authentication.TokenAuthentication',
    ),
 }
+
+SITE_ID = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
