@@ -19,6 +19,16 @@ class CategoriesViewSet(viewsets.ModelViewSet):
 	serializer_class = CategoriesSerializer
 	permission_classes = [IsAuthenticated]
 	allowed_methods = ('GET',)
+	@detail_route(methods=['post'])
+	def addSubscriber(self, request, pk=None):
+		category = self.get_object()
+		category.subscribers.add(request.user)
+		return Response(status=201)
+	@detail_route(methods=['post'])
+	def removeSubscriber(self, request, pk=None):
+		category = self.get_object()
+		category.subscribers.remove(request.user)
+		return Response(status=201)
 
 class SourcesViewSet(viewsets.ModelViewSet):
 	queryset = Sources.objects.all()

@@ -31,6 +31,7 @@ urlpatterns = [
 	url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^currentUser', views.CurrentUserView.as_view({'get': 'getCurrent'}), name='getCurrent'),
+    #url(r'^addCategory', views.CurrentUserView.as_view({'post': 'addCategory'}), name='addCategory'),
 ]
 
 urlpatterns += router.urls
