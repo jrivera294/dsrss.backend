@@ -23,6 +23,7 @@ router = routers.DefaultRouter()
 router.register(r'users',views.UserViewSet)
 router.register(r'categories',views.CategoriesViewSet)
 router.register(r'sources',views.SourcesViewSet)
+router.register(r'userProfile',views.UserProfileViewSet)
 #router.register(r'currentUser',views.CurrentUserView,base_name='currentUser')
 
 urlpatterns = [
@@ -31,7 +32,8 @@ urlpatterns = [
 	url(r'^rest-auth/', include('rest_auth.urls')),
     url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^currentUser', views.CurrentUserView.as_view({'get': 'getCurrent'}), name='getCurrent'),
-    #url(r'^addCategory', views.CurrentUserView.as_view({'post': 'addCategory'}), name='addCategory'),
+    url(r'^sendMail', views.CurrentUserView.as_view({'get': 'sendMail'}), name='sendMail'),
+    url(r'^getProfile', views.CurrentUserView.as_view({'get': 'getProfile'}), name='getProfile'),
 ]
 
 urlpatterns += router.urls

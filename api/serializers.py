@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Categories,Sources,Advertising
+from api.models import Categories,Sources,Advertising,UserProfile
 from django.contrib.auth.models import User
 
 class SourcesSerializer(serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class CategoriesSerializer(serializers.ModelSerializer):
 	sources = SourcesSerializer(many=True)
 	class Meta:
 		model = Categories
-		fields = ('id','name','sources')		
+		fields = ('id','name','sources')
 
 class UserSerializer(serializers.ModelSerializer):
 	categories = CategoriesSerializer(many=True)
@@ -20,3 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 		model = User
 		fields = ('id','username','email','categories')
 
+class UserProfileSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = UserProfile
+		fields = ('user','mailFlag')

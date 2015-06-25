@@ -25,3 +25,9 @@ class Advertising(models.Model):
 	user_clicks = models.ManyToManyField(User,blank=True,related_name='user_clicks')
 	def __str__(self):
 		return self.name
+
+class UserProfile(models.Model):
+	user = models.OneToOneField(User,primary_key=True)
+	mailFlag = models.BooleanField(default=False)
+	def __str__(self):
+		return self.user.username
