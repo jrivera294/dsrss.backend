@@ -1,14 +1,16 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets
-from api.serializers import SourcesSerializer,CategoriesSerializer,UserSerializer,UserProfileSerializer
-from api.models import Categories,Sources,UserProfile
+from api.serializers import SourcesSerializer,CategoriesSerializer,UserSerializer,UserProfileSerializer, AdvertisingSerializer
+from api.models import Categories,Sources,UserProfile,Advertising
 from api.permissions import IsOwner
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import detail_route
+from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from django.core.mail import send_mass_mail
 from django.core.mail import send_mail
 import feedparser
+import random
 # Create your views here.
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -87,4 +89,23 @@ class CurrentUserView(viewsets.ViewSet):
 				mail = (subject,message,'proyectodsucab@gmail.com',[user.email])
 				messageList += mail
 		send_mass_mail((messageList,),fail_silently=False)
+		return Response(status=201)
+
+class AdvertisingViewSet(viewsets.ModelViewSet):
+	queryset = Advertising.objects.all()
+	serializer_class = AdvertisingSerializer
+	#permission_classes = [IsAuthenticated]
+	allowed_methods = ('GET',)
+	@list_route(methods=['get'])
+	def getAdvertising(self,request,pk=None):
+		advertising = Advertising.objects.all()[random.randint(0, Advertising.objects.count() - 1)]
+		advertising.views += 1
+		advertising.save()
+		serializer = AdvertisingSerializer(advertising)
+		return Response(serializer.data)
+	@detail_route(methods=['get'])
+	def clickAdvertising(self,request,pk=None):
+		advertising = self.get_object()
+		advertising.clicks += 1
+		advertising.save()
 		return Response(status=201)

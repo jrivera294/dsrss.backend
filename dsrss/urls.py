@@ -24,6 +24,7 @@ router.register(r'users',views.UserViewSet)
 router.register(r'categories',views.CategoriesViewSet)
 router.register(r'sources',views.SourcesViewSet)
 router.register(r'userProfile',views.UserProfileViewSet)
+router.register(r'advertising',views.AdvertisingViewSet)
 #router.register(r'currentUser',views.CurrentUserView,base_name='currentUser')
 
 urlpatterns = [

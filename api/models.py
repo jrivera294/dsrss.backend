@@ -21,8 +21,9 @@ class Advertising(models.Model):
 	name = models.CharField(max_length=50,default='')
 	url = models.CharField(max_length=255)
 	img_url = models.CharField(max_length=255)
-	clicks = models.BigIntegerField()
-	user_clicks = models.ManyToManyField(User,blank=True,related_name='user_clicks')
+	clicks = models.BigIntegerField(default=0)
+	views = models.BigIntegerField(default=0)
+	##user_clicks = models.ManyToManyField(User,blank=True,related_name='user_clicks')
 	def __str__(self):
 		return self.name
 

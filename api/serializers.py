@@ -24,3 +24,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = UserProfile
 		fields = ('user','mailFlag')
+
+class AdvertisingSerializer(serializers.ModelSerializer):
+	#category = CategoriesSerializer()
+	class Meta:
+		model = Advertising
+		fields = ('id','name','url','img_url','clicks','views')
