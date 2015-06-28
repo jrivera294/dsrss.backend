@@ -44,8 +44,8 @@ class SourcesViewSet(viewsets.ModelViewSet):
 class UserProfileViewSet(viewsets.ModelViewSet):
 	queryset = UserProfile.objects.all()
 	serializer_class = UserProfileSerializer
-	#permission_classes = [IsAuthenticated]
-	allowed_methods = ('GET','PUT',)
+	permission_classes = [IsAuthenticated]
+	allowed_methods = ('GET','PUT','OPTIONS',)
 
 class CurrentUserView(viewsets.ViewSet):
 	#permission_classes = [IsAuthenticated]
